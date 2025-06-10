@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست‌ها - سامانه مدیریت دانشگاه لرستان</title>
+    <style>
+        @font-face {
+            font-family: 'VazirMatn';
+            src: url('fonts/ttf/VazirMatn-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'VazirMatn';
+            src: url('fonts/ttf/VazirMatn-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'VazirMatn', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-button {
+            font-family: 'VazirMatn', sans-serif;
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .tab-button:hover {
+            background: #1d4ed8;
+        }
+
+        .tab-button.active {
+            background: #1e40af;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .input-glass {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .input-glass:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem;
+            text-align: right;
+        }
+
+        th {
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .edit-btn,
+        .delete-btn {
+            font-family: 'VazirMatn', sans-serif;
+            margin-left: 0.5rem;
+        }
+
+        .text-primary {
+            color: #2563eb;
+        }
+
+        .hover\:underline:hover {
+            text-decoration: underline;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+        }
+
+        .block {
+            display: block;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .p-3 {
+            p-2: padding;
+            0.75rem;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .toast {
+            font-family: 'VazirMatn', sans-serif;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: slideIn 0.3s ease-out forwards;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast-success {
+            background-color: #4caf50;
+        }
+
+        .toast-error {
+            background-color: #ef4444;
+        }
+
+        .toast-warning {
+            background-color: #f59e0b;
+        }
+
+        .toast-close {
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toast-container" id="toast"></div>
+    <div class="toast-container"></div>
+    <div class="container">
+        <div class="glass-card animate-glass-card">
+            <h1 class="text-3xl font-bold text-white text-center mb-6 mb-3xl">سامانه مدیریت دانشگاه لرستان</h1>
+            <a href="index.html" class="block text-primary hover:underline mb-6">بازگشت به صفحه اصلی</a>
+            <div class="tabs">
+                <button id="tab-students" class="tab-button active">دانشجویان</button>
+                <button id="tab-teachers" class="tab-button">اساتید</button>
+                <button id="tab-courses" class="tab-button">دروس</button>
+            </div>
+            <div id="students-section" class="tab-content active">
+                <h2 class="text-2xl font-semibold mb-6">لیست دانشجویان</h2>
+                <div class="mb-4">
+                    <input type="text" id="student-search" placeholder="جستجو بر اساس نام، نام خانوادگی، شماره دانشجویی"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <a href="student-form.html" class="btn-primary mb-4 inline-block">ثبت دانشجوی جدید</a>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>شماره دانشجویی</th>
+                                <th>نام</th>
+                                <th>نام خانوادگی</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="teachers-section" class="tab-content hidden">
+                <h2 class="text-2xl font-semibold mb-6">لیست اساتید</h2>
+                <div class="mb-4">
+                    <input type="text" id="teacher-search" placeholder="جستجو بر اساس نام، نام خانوادگی، کد استاد"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <a href="teacher-form.html" class="btn-primary mb-4 inline-block">ثبت استاد جدید</a>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>کد استاد</th>
+                                <th>نام</th>
+                                <th>نام خانوادگی</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teacher-table"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="courses-section" class="tab-content hidden">
+                <h2 class="text-2xl font-semibold mb-6">لیست دروس</h2>
+                <div class="mb-4">
+                    <input type="text" id="course-search" placeholder="جستجو بر اساس نام یا کد درس"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <a href="course-form.html" class="btn-primary mb-4 inline-block">ثبت درس جدید</a>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>کد درس</th>
+                                <th>نام درس</th>
+                                <th>دانشکده</th>
+                                <th>تعداد واحد</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="course-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

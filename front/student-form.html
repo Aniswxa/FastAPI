@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="form-title">سامانه مدیریت دانشگاه لرستان</title>
+    <style>
+        @font-face {
+            font-family: 'VazirMatn';
+            src: url('fonts/ttf/VazirMatn-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'VazirMatn';
+            src: url('fonts/ttf/VazirMatn-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'VazirMatn', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            padding: 1.5rem;
+            max-width: 600px;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .input-glass {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .input-glass:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+        }
+
+        .text-primary {
+            color: #2563eb;
+        }
+
+        .hover\:underline:hover {
+            text-decoration: underline;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .p-3 {
+            padding: 0.75rem;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="toast-container" id="toast"></div>
+        <div class="glass-card animate-fade">
+            <h1 class="text-3xl font-bold text-center mb-8">سامانه مدیریت دانشگاه لرستان</h1>
+            <h2 id="form-heading" class="text-2xl font-semibold text-center mb-6">فرم ثبت دانشجو</h2>
+            <a href="index.html" class="block text-primary hover:underline mb-6">بازگشت به صفحه اصلی</a>
+            <form id="student-form">
+                <div class="mb-6">
+                    <label for="student-id" class="block text-sm font-medium mb-2">شماره دانشجویی</label>
+                    <input type="text" id="student-stid" name="student-stid" class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-fname" class="block text-sm font-medium mb-2">نام</label>
+                    <input type="text" id="student-fname" name="student-fname"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-lname" class="block text-sm font-medium mb-2">نام خانوادگی</label>
+                    <input type="text" id="student-lname" name="student-lname"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-id" class="block text-sm font-medium mb-2">کد ملی</label>
+                    <input type="text" id="student-id" name="student-id" class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-birth" class="block text-sm font-medium mb-2">تاریخ تولد (yyyy/mm/dd)</label>
+                    <input type="text" id="student-birth" name="student-birth" placeholder="مثال: 1400/05/20"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-borncity" class="block text-sm font-medium mb-2">شهر تولد</label>
+                    <select id="student-borncity" name="student-borncity" class="input-glass w-full p-3 rounded-lg">
+                        <option value="">لطفاً شهر را انتخاب کنید</option>
+                        <option value="تهران">تهران</option>
+                        <option value="مشهد">مشهد</option>
+                        <option value="اصفهان">اصفهان</option>
+                        <option value="کرج">کرج</option>
+                        <option value="شیراز">شیراز</option>
+                        <option value="تبریز">تبریز</option>
+                        <option value="قم">قم</option>
+                        <option value="اهواز">اهواز</option>
+                        <option value="کرمانشاه">کرمانشاه</option>
+                        <option value="ارومیه">ارومیه</option>
+                        <option value="رشت">رشت</option>
+                        <option value="زاهدان">زاهدان</option>
+                        <option value="همدان">همدان</option>
+                        <option value="کرمان">کرمان</option>
+                        <option value="یزد">یزد</option>
+                        <option value="اردبیل">اردبیل</option>
+                        <option value="بندرعباس">بندرعباس</option>
+                        <option value="اراک">اراک</option>
+                        <option value="اسلامشهر">اسلامشهر</option>
+                        <option value="زنجان">زنجان</option>
+                        <option value="سنندج">سنندج</option>
+                        <option value="قزوین">قزوین</option>
+                        <option value="خرم‌آباد">خرم‌آباد</option>
+                        <option value="گرگان">گرگان</option>
+                        <option value="ساری">ساری</option>
+                        <option value="بجنورد">بجنورد</option>
+                        <option value="بوشهر">بوشهر</option>
+                        <option value="بیرجند">بیرجند</option>
+                        <option value="ایلام">ایلام</option>
+                        <option value="شهرکرد">شهرکرد</option>
+                        <option value="یاسوج">یاسوج</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label for="student-address" class="block text-sm font-medium mb-2">آدرس</label>
+                    <input type="text" id="student-address" name="student-address"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-postalcode" class="block text-sm font-medium mb-2">کد پستی</label>
+                    <input type="text" id="student-postalcode" name="student-postalcode"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-cphone" class="block text-sm font-medium mb-2">تلفن همراه</label>
+                    <input type="text" id="student-cphone" name="student-cphone"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-hphone" class="block text-sm font-medium mb-2">تلفن ثابت</label>
+                    <input type="text" id="student-hphone" name="student-hphone"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-father" class="block text-sm font-medium mb-2">نام پدر</label>
+                    <input type="text" id="student-father" name="student-father"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-ids_number" class="block text-sm font-medium mb-2">سریال شناسنامه</label>
+                    <input type="text" id="student-ids_number" name="student-ids_number"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-ids_letter" class="block text-sm font-medium mb-2">حرف سریال</label>
+                    <input type="text" id="student-ids_letter" name="student-ids_letter"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-ids_code" class="block text-sm font-medium mb-2">کد سریال</label>
+                    <input type="text" id="student-ids_code" name="student-ids_code"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <div class="mb-6">
+                    <label for="student-department" class="block text-sm font-medium mb-2">دانشکده</label>
+                    <select id="student-department" name="student-department" class="input-glass w-full p-3 rounded-lg">
+                        <option value="">لطفاً دانشکده را انتخاب کنید</option>
+                        <option value="فنی مهندسی">فنی مهندسی</option>
+                        <option value="علوم پایه">علوم پایه</option>
+                        <option value="اقتصاد">اقتصاد</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label for="student-major" class="block text-sm font-medium mb-2">رشته تحصیلی</label>
+                    <select id="student-major" name="student-major" class="input-glass w-full p-3 rounded-lg">
+                        <option value="">رشته تحصیلی</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label for="student-married" class="block text-sm font-medium mb-2">وضعیت تاهل</label>
+                    <select id="student-married" name="student-married" class="input-glass w-full p-3 rounded-lg">
+                        <option value="مجرد">مجرد</option>
+                        <option value="متاهل">متاهل</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label for="student-course_id" class="block text-sm font-medium mb-2">کد درس</label>
+                    <input type="text" id="student-course_id" name="student-course_id"
+                        class="input-glass w-full p-3 rounded-lg">
+                </div>
+                <button type="submit" id="student-submit" class="btn-primary w-full p-3 rounded-lg">ثبت دانشجو</button>
+            </form>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
